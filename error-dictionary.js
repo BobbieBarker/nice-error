@@ -1,0 +1,16 @@
+/**
+ * Accepted http status codes.
+ */
+
+module.exports = {
+  BAD_REQUEST: 400,
+  UNAUTHORIZED: 401,
+  REQUEST_FAILED: 402,
+  FORBIDDEN: 403,
+  NOT_FOUND: 404,
+  GONE: 410,
+  RESOURCE_NOT_FOUND: 420,
+  INTERNAL_ERROR: 500,
+  SERVICE_UNAVAILABLE: 503,
+  GATEWAY_TIMEOUT: 504
+};
