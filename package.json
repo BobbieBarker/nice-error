@@ -1,5 +1,5 @@
 {
-  "name": "nice-error",
+  "name": "nice-http-error",
   "version": "1.0.0",
   "description": "Provides Simple interface for creating errors and associating them with an accepted http status code.",
   "main": "nice-error.js",

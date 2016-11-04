@@ -5,7 +5,7 @@ Create custom errors to supply meaningful error messages in response bodies, and
 ## Installation:
 
 ```
-npm install nice-error --save
+npm install nice-http-error --save
 ```
 
 ## API:
@@ -14,7 +14,7 @@ npm install nice-error --save
 create is a static class method to be used as a convenience for instantiating new instances of Nice Error.
 
 ```javascript
-const niceError = require('nice-error');
+const niceError = require('nice-http-error');
 niceError.create('A problem', {
   code: 'Special Error',
   detail: 'You made a big Mistake',
@@ -56,7 +56,7 @@ If Anything else is passed in, or if nothing is passed in at all, it will defaul
 From is a static class method to verify that your error is a nice error. If you pass it an instance of NiceError it will simply return that same instance back to you. If you pass it a regular error object, it will encapsulate it, assign it a status code of 500, and return you an instance of Nice Error.
 
 ```javascript
-const niceError = require('nice-error');
+const niceError = require('nice-http-error');
 niceError.from(error)
 ```
 
@@ -68,7 +68,7 @@ You should use this any where you're trying to handle explicit errors in a micro
 Using Nice Error in actual code might look something like this:
 
 ```javascript
-const niceError = require('nice-error');
+const niceError = require('nice-http-error');
 module.exports = (pool, products, routeConfig) =>
   pool.query(releaseInventorySQL, [getInventoryIds(products)])
   .catch(error => {
