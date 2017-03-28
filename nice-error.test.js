@@ -33,9 +33,9 @@ describe('Nice Error', function() {
     expect(err.message).to.equal('error occurred');
   });
 
-  it('.status', function() {
+  it('.statusCode', function() {
     let err = new NiceError('error occurred');
-    expect(err.status).to.equal(500);
+    expect(err.statusCode).to.equal(500);
   });
 
   context('Nice Errors should have the correct properties', function() {
@@ -44,7 +44,7 @@ describe('Nice Error', function() {
       mvError = new NiceError('error occured', {
         code: 'Special Error',
         detail: 'You made a big Mistake',
-        status: 'BAD_REQUEST',
+        statusCode: 'BAD_REQUEST',
         error: new Error('error stuff')
       });
     });
@@ -53,7 +53,7 @@ describe('Nice Error', function() {
       expect(mvError.propertyIsEnumerable('message')).to.be.true;
       expect(mvError.propertyIsEnumerable('code')).to.be.true;
       expect(mvError.propertyIsEnumerable('detail')).to.be.true;
-      expect(mvError.propertyIsEnumerable('status')).to.be.false;
+      expect(mvError.propertyIsEnumerable('statusCode')).to.be.false;
       expect(mvError.propertyIsEnumerable('metadata')).to.be.false;
     });
 
@@ -67,29 +67,29 @@ describe('Nice Error', function() {
       expect(mvError.create).to.not.exist;
     });
 
-    it('should enumerate the propper status Code', function() {
-      expect(mvError.status).to.equal(400);
+    it('should enumerate the propper statusCode Code', function() {
+      expect(mvError.statusCode).to.equal(400);
     });
 
-    it('should assign a 500 http status code when no code is provided', function() {
+    it('should assign a 500 http statusCode code when no code is provided', function() {
       mvError = new NiceError('error occured', {
         code: 'Special Error',
         detail: 'You made a big Mistake',
         error: new Error('error stuff')
       });
 
-      expect(mvError.status).to.equal(500);
+      expect(mvError.statusCode).to.equal(500);
     });
 
-    it('should assign a 500 http status code when a bad code is passed', function() {
+    it('should assign a 500 http statusCode code when a bad code is passed', function() {
       mvError = new NiceError('error occured', {
         code: 'Special Error',
         detail: 'You made a big Mistake',
-        status: 'I_LIKE_TO_MAKE_UP_MY_OWN_STUFF',
+        statusCode: 'I_LIKE_TO_MAKE_UP_MY_OWN_STUFF',
         error: new Error('error stuff')
       });
 
-      expect(mvError.status).to.equal(500);
+      expect(mvError.statusCode).to.equal(500);
     });
   });
 
@@ -99,7 +99,7 @@ describe('Nice Error', function() {
       mvError = new NiceError('error occured', {
         code: 'Special Error',
         detail: 'You made a big Mistake',
-        status: 'BAD_REQUEST',
+        statusCode: 'BAD_REQUEST',
         error: new Error('error stuff')
       });
     });
@@ -112,15 +112,15 @@ describe('Nice Error', function() {
       const testyError = new Error('Testing Some Stuff');
       let niceTestyError = NiceError.from(testyError)
       expect(niceTestyError).to.be.an.instanceof(NiceError);
-      expect(niceTestyError.status).to.equal(500);
+      expect(niceTestyError.statusCode).to.equal(500);
     });
 
-    it('should preserve an errors status property and assign it as a Nice Error class property', function() {
+    it('should preserve an errors statusCode property and assign it as a Nice Error class property', function() {
       const testyError = new Error('Testing Some Stuff');
-      testyError.status = 400;
+      testyError.statusCode = 400;
       let niceTestyError = NiceError.from(testyError)
       expect(niceTestyError).to.be.an.instanceof(NiceError);
-      expect(niceTestyError.status).to.equal(400);
+      expect(niceTestyError.statusCode).to.equal(400);
     })
   });
 
@@ -129,7 +129,7 @@ describe('Nice Error', function() {
       NiceError.create('error occured', {
         code: 'Special Error',
         detail: 'You made a big Mistake',
-        status: 'BAD_REQUEST',
+        statusCode: 'BAD_REQUEST',
         error: new Error('error stuff')
       });
     });

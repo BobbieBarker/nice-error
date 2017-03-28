@@ -16,7 +16,7 @@ const mapEnumProps = object => Object.keys(object)
  * code: 'optional - string', // error code.
  * detail: 'optional - string', //short helpful description of the problem to aid in debugging
  * error: 'optional - error object', //error object to be encapsulated into NiceError.metadata
- * status: 'optional - string', //String representing an accepted nice http status i.e 'BAD_REQUEST', 'SERVICE_UNAVAILABLE'
+ * statusCode: 'optional - string', //String representing an accepted nice http statusCode i.e 'BAD_REQUEST', 'SERVICE_UNAVAILABLE'
  * }
  */
 
@@ -27,7 +27,7 @@ class NiceError extends Error {
   /**
    * NiceError Constructor
    * @param  {String} message short description of the error
-   * @param  {Object} options Options object for error can contain: code, detail,  status, error
+   * @param  {Object} options Options object for error can contain: code, detail,  statusCode, error
    */
   constructor(message, options) {
     super(message);
@@ -45,22 +45,22 @@ class NiceError extends Error {
       });
     }
 
-    if (typeof options === 'object' && typeof options.status !== 'number') {
-      Object.defineProperty(this, 'status', {
+    if (typeof options === 'object' && typeof options.statusCode !== 'number') {
+      Object.defineProperty(this, 'statusCode', {
         configurable: true,
         enumerable: false,
-        value: errorDictionary[options.status] || INTERNAL_ERROR,
+        value: errorDictionary[options.statusCode] || INTERNAL_ERROR,
         writable: true
       });
-    } else if (typeof options === 'object' && typeof options.status === 'number') {
-      Object.defineProperty(this, 'status', {
+    } else if (typeof options === 'object' && typeof options.statusCode === 'number') {
+      Object.defineProperty(this, 'statusCode', {
         configurable: true,
         enumerable: false,
-        value: options.status,
+        value: options.statusCode,
         writable: true
       });
     } else {
-      Object.defineProperty(this, 'status', {
+      Object.defineProperty(this, 'statusCode', {
         configurable: true,
         enumerable: false,
         value: INTERNAL_ERROR,
@@ -107,8 +107,8 @@ class NiceError extends Error {
       return error;
     } else if (error instanceof Error) {
       const options = {};
-      if (error.hasOwnProperty('status')) {
-        Object.assign(options, {status: error.status});
+      if (error.hasOwnProperty('statusCode')) {
+        Object.assign(options, {statusCode: error.statusCode});
       }
       return new NiceError(error.message, Object.assign(options, {error}));
     }
@@ -117,7 +117,7 @@ class NiceError extends Error {
   /**
    * convienence method for creating nice errors
    * @param  {String} message     short description of the error
-   * @param  {Object} options     Options object for error can contain: code, detail,  status, error
+   * @param  {Object} options     Options object for error can contain: code, detail,  statusCode, error
    * @return {Object} NiceError new instance of NiceError
    */
   static create(message, options) {
